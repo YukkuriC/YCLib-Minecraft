@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "yclib",
+  "version": "${version}",
+  "name": "YCLib",
+  "description": "",
+  "authors": [
+    "YukkuriC"
+  ],
+  "contact": {
+    "homepage": "https://github.com/YukkuriC/YCHexLib"
+  },
+  "license": "MIT",
+  "icon": "assets/yclib/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.yukkuric.yclib.fabric.YCLibFabric"
+    ],
+    "client": [
+      "io.yukkuric.yclib.fabric.client.YCLibFabricClient"
+    ]
+  },
+  "mixins": [
+    "yclib.mixins.fabric.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
