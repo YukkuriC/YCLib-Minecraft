@@ -1,6 +1,7 @@
 package io.yukkuric.yclib;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.locale.Language;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 
@@ -36,5 +37,8 @@ public final class YCLib {
             LOGGER.error("error trying to load interop of {}", modId, e);
             return false;
         }
+    }
+    public static String doTranslate(String key, Object... args) {
+        return Language.getInstance().getOrDefault(key).formatted(args);
     }
 }
