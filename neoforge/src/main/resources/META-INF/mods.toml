@@ -14,19 +14,15 @@ description = '''
 #logoFile = ""
 
 [[dependencies.yclib]]
-modId = "neoforge"
-type = "required"
+modId = "forge"
+mandatory = true
 versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.yclib]]
 modId = "minecraft"
-type = "required"
+mandatory = true
 versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
-
-
-[[mixins]]
-config = "yclib.mixins.forge.json"

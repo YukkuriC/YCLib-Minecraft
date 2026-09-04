@@ -44,7 +44,7 @@ dependencies {
     modImplementation "yclib:yclib:$yclib_version"
     include "yclib:yclib:$yclib_version"
     // forge
-    implementation "yclib:yclib:$yclib_version"
+    implementation fg.deobf("yclib:yclib:$yclib_version")
     jarJar "yclib:yclib:$yclib_version"
 }
 ```
