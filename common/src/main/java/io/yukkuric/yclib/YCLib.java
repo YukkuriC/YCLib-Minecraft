@@ -1,7 +1,6 @@
 package io.yukkuric.yclib;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.locale.Language;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 
@@ -26,6 +25,9 @@ public final class YCLib {
     public static boolean isPhysicalClient() {
         throw new NotImplementedException("MIXIN REQUIRED");
     }
+    public static String doTranslate(String key, Object... args) {
+        throw new NotImplementedException("MIXIN REQUIRED");
+    }
 
     // non-mixin common logic
     public static boolean tryLoadInterop(String modId, Runnable loadFunc) {
@@ -37,8 +39,5 @@ public final class YCLib {
             LOGGER.error("error trying to load interop of {}", modId, e);
             return false;
         }
-    }
-    public static String doTranslate(String key, Object... args) {
-        return Language.getInstance().getOrDefault(key).formatted(args);
     }
 }

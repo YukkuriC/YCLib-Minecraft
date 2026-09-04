@@ -3,6 +3,7 @@ package io.yukkuric.yclib.fabric.mixin;
 import io.yukkuric.yclib.YCLib;
 import io.yukkuric.yclib.fabric.YCLibFabric;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.locale.Language;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +21,7 @@ public class YCLibFabricAPI {
     private static void hookPhysicalClient(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(YCLibFabric.IsPhisicalClient());
     }
-    @Inject(method = "modFilePath", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "modFilePath", at = @At("HEAD"), cancellable = true, remap = false)
     private static void hookModFilePath(String id, CallbackInfoReturnable<Path> cir) {
         var container = FabricLoader.getInstance().getModContainer(id).orElse(null);
         if (container == null) {
@@ -29,5 +30,9 @@ public class YCLibFabricAPI {
         }
         var paths = container.getOrigin().getPaths();
         cir.setReturnValue(paths.isEmpty() ? null : paths.get(0));
+    }
+    @Inject(method="doTranslate", at=@At("HEAD"), cancellable = true, remap = false)
+    private static void hookDoTranslate(String key, Object[] args, CallbackInfoReturnable<String> cir){
+        cir.setReturnValue(Language.getInstance().getOrDefault(key).formatted(args));
     }
 }

@@ -1,6 +1,7 @@
 package io.yukkuric.yclib.forge.mixin;
 
 import io.yukkuric.yclib.YCLib;
+import net.minecraft.locale.Language;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -29,5 +30,9 @@ public class YCLibForgeAPI {
             return;
         }
         cir.setReturnValue(file.getFile().getFilePath());
+    }
+    @Inject(method="doTranslate", at=@At("HEAD"), cancellable = true, remap = false)
+    private static void hookDoTranslate(String key, Object[] args, CallbackInfoReturnable<String> cir){
+        cir.setReturnValue(Language.getInstance().getOrDefault(key).formatted(args));
     }
 }
