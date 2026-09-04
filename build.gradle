@@ -2,6 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "io.github.pacifistmc.forgix" version "2.0.0"
 }
 
 architectury {
@@ -67,4 +68,8 @@ subprojects {
             // retrieving dependencies.
         }
     }
+}
+
+forgix {
+    autoRun = true
 }
