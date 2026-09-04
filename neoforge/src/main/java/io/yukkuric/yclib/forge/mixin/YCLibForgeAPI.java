@@ -22,7 +22,7 @@ public class YCLibForgeAPI {
     private static void hookPhysicalClient(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(FMLEnvironment.dist == Dist.CLIENT);
     }
-    @Inject(method = "modFilePath", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "modFilePath", at = @At("HEAD"), cancellable = true, remap = false)
     private static void hookModFilePath(String id, CallbackInfoReturnable<Path> cir) {
         var file = ModList.get().getModFileById(id);
         if (file == null) {
