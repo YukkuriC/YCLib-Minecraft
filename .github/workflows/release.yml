@@ -1,0 +1,46 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+
+      - name: Extract version
+        run: |
+          MOD_VERSION_BASE=$(grep '^mod_version_base=' gradle.properties | cut -d'=' -f2)
+          MC_VERSION=$(grep '^minecraft_version=' gradle.properties | cut -d'=' -f2)
+          MOD_VERSION="${MC_VERSION}-${MOD_VERSION_BASE}"
+          echo "MOD_VERSION=${MOD_VERSION}" >> $GITHUB_ENV
+          echo "mod_version=${MOD_VERSION}"
+
+      - name: Create tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${MOD_VERSION}"
+          git push origin "${MOD_VERSION}"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.MOD_VERSION }}
+          files: build/forgix/*.jar
