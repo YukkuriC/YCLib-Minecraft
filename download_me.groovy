@@ -13,6 +13,20 @@ if (!jarFile.exists()) {
     println "Download completed: $jarFile"
 }
 
+project.tasks.register('cleanYCLibBoot') {
+    group = '114514'
+    description = 'Delete YCLib boot script cache from the current project'
+    doLast {
+        def bootScript = file("$projectDir/build/yclib_boot.groovy")
+        if (bootScript.exists()) {
+            bootScript.delete()
+            println "Deleted cached boot script: $bootScript"
+        } else {
+            println "No cached boot script found: $bootScript"
+        }
+    }
+}
+
 allprojects {
     repositories {
         mavenCentral()
